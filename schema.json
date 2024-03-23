@@ -1,0 +1,144 @@
+{
+  "type": "component",
+  "metadata": {},
+  "schema": {
+    "name": "autocomplete",
+    "friendlyName": "Autocomplete Field",
+    "description": "Dynamic Autocomplete (based on https://github.com/pstanoev/simple-svelte-autocomplete)",
+    "icon": "Rename",
+    "settings": [
+      {
+        "type": "field/string",
+        "key": "field",
+        "label": "Field"
+      },
+      {
+        "type": "text",
+        "label": "Label",
+        "key": "label"
+      },
+      {
+        "type": "text",
+        "label": "Placeholder",
+        "key": "placeholder"
+      },
+      {
+        "type": "validation/string",
+        "label": "Validation",
+        "key": "validation"
+      },
+      {
+        "type": "select",
+        "key": "dataSourceType",
+        "label": "Data Source Type",
+        "options": [{"label": "Budibase Datasource", "value": "budibase"}, {"label": "API", "value": "api"}, {"label": "Static", "value": "static"}, {"label": "Custom Query", "value": "query"}],
+        "defaultValue": "budibase",
+        "required": true
+      },
+      {
+        "type": "dataProvider",
+        "key": "dataProvider",
+        "label": "Data Provider",
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": "budibase"
+        },
+        "required": true
+      },
+      {
+        "type": "plainText",
+        "key": "apiUrl",
+        "label": "API URL",
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": "api"
+        },
+        "required": true
+      },
+      {
+        "type": "plainText",
+        "key": "queryParam",
+        "label": "Search Query Parameter",
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": "api"
+        },
+        "required": true
+      },
+      {
+        "type": "options",
+        "key": "staticOptions",
+        "label": "Options",
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": "static"
+        }
+      },
+      {
+        "type": "event",
+        "key": "searchEvent",
+        "label": "Search Event",
+        "context": [
+          {
+            "label": "Search Keyword",
+            "key": "keyword"
+          }
+        ],
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": "query"
+        }
+      },
+      {
+        "type": "text",
+        "key": "loading",
+        "label": "Loading State Binding",
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": "query"
+        }
+      },
+      {
+        "type": "text",
+        "key": "results",
+        "label": "Query Results State Binding",
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": "query"
+        }
+      },
+      {
+        "type": "plainText",
+        "key": "labelFieldName",
+        "label": "Label Field Name",
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": ["query", "budibase", "api"]
+        },
+        "default": "label"
+      },
+      {
+        "type": "plainText",
+        "key": "valueFieldName",
+        "label": "Value Field Name",
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": ["query", "budibase", "api"]
+        },
+        "default": "value"
+      }
+    ],
+    "context": [
+      {
+        "type": "static",
+        "values": [
+          {
+            "label": "Text",
+            "key": "text",
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  }
+}
