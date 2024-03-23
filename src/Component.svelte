@@ -86,7 +86,7 @@
         });
     };
 
-    $: if (dataSourceType === 'query') {
+    $: if (dataSourceType === 'query' || (dataSourceType === 'budibase' && searchEvent)) {
         const parsedLoading = loading.toLowerCase() === 'true' || loading === '1';
 
         if (parsedLoading && !loadingResolver) {
@@ -97,7 +97,8 @@
         }
         else if (!parsedLoading && loadingResolver) {
             console.log('Got results from query');
-            loadingResolver(JSON.parse(results));
+            const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataSource?.rows;
+            loadingResolver(parsedResults);
             loadingResolver = null;
         }
     };
@@ -115,7 +116,9 @@
     async function getItems(keyword: string) {
         switch (dataSourceType) {
             case 'budibase':
-                return dataSource?.rows;
+                if (!searchEvent) {
+                    return dataSource?.rows;
+                }
             case 'query':
                 if (searchEvent) {
                     searchEvent({keyword});

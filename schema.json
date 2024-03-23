@@ -86,7 +86,7 @@
         ],
         "dependsOn": {
           "setting": "dataSourceType",
-          "value": "query"
+          "value": ["query", "budibase"]
         }
       },
       {
