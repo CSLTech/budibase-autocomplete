@@ -128,7 +128,9 @@
             case 'static':
                 return staticOptions;
             case 'api':
-                const response = await fetch(`${apiUrl}?${queryParam}=${keyword}`);
+                const url = new URL(apiUrl);
+                url.searchParams.set(queryParam, keyword);
+                const response = await fetch(url);
                 return await response.json();
         }
     }
