@@ -156,9 +156,7 @@
           {label || ' '}
         </label>
         <div class='spectrum-Form-itemField'>
-            <div class="spectrum-Textfield">
-                <AutoComplete id={fieldState?.fieldId} searchFunction="{getItems}" bind:selectedItem bind:text {placeholder} {labelFieldName} {valueFieldName} onChange="{changeHandler}" {delay} />
-            </div>
+            <AutoComplete inputId={fieldState?.fieldId} className="autocomplete-width" searchFunction="{getItems}" bind:selectedItem bind:text {placeholder} {labelFieldName} {valueFieldName} onChange="{changeHandler}" {delay} />
         </div>
         {#if fieldState?.error}
             <div class='error'>{fieldState.error}</div>
@@ -188,4 +186,8 @@
     position: relative;
     width: 100%;
   }
+  :global(.autocomplete-width) {
+    width:100%;
+  }
+
 </style>
