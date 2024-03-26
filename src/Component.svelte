@@ -144,7 +144,7 @@
 </script>
 
 
-<div class='spectrum-Form-item' use:styleable={$component.styles}>
+<div class='spectrum-Form-item' class:above={labelPos === "above"} use:styleable={$component.styles}>
     {#if !formContext}
         <div class='placeholder'>Form components need to be wrapped in a form</div>
     {:else}
@@ -156,7 +156,9 @@
           {label || ' '}
         </label>
         <div class='spectrum-Form-itemField'>
-            <AutoComplete searchFunction="{getItems}" bind:selectedItem bind:text {placeholder} {labelFieldName} {valueFieldName} onChange="{changeHandler}" {delay} />
+            <div class="spectrum-Textfield">
+                <AutoComplete id={fieldState?.fieldId} searchFunction="{getItems}" bind:selectedItem bind:text {placeholder} {labelFieldName} {valueFieldName} onChange="{changeHandler}" {delay} />
+            </div>
         </div>
         {#if fieldState?.error}
             <div class='error'>{fieldState.error}</div>
@@ -174,12 +176,16 @@
   label.hidden {
     padding: 0;
   }
-    .spectrum-Form-itemField {
-    position: relative;
-    width: 100%;
-  }
   .spectrum-FieldLabel--right,
   .spectrum-FieldLabel--left {
     padding-right: var(--spectrum-global-dimension-size-200);
+  }
+    .spectrum-Form-item.above {
+    display: flex;
+    flex-direction: column;
+  }
+  .spectrum-Form-itemField {
+    position: relative;
+    width: 100%;
   }
 </style>
