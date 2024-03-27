@@ -87,7 +87,7 @@
     };
 
     $: if (dataSourceType === 'query' || (dataSourceType === 'budibase' && searchEvent)) {
-        const parsedLoading = loading.toLowerCase() === 'true' || loading === '1';
+        const parsedLoading = loading?.toLowerCase() === 'true' || loading === '1';
 
         if (parsedLoading && !loadingResolver) {
             console.log('Loading new results from query');
