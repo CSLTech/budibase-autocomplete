@@ -97,7 +97,7 @@
         }
         else if (!parsedLoading && loadingResolver) {
             console.log('Got results from query');
-            const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataSource?.rows;
+            const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataProvider?.rows;
             loadingResolver(parsedResults);
             loadingResolver = null;
         }
@@ -117,7 +117,7 @@
         switch (dataSourceType) {
             case 'budibase':
                 if (!searchEvent) {
-                    return dataSource?.rows;
+                    return dataProvider?.rows;
                 }
             case 'query':
                 if (searchEvent) {
