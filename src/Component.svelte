@@ -96,7 +96,9 @@
             });
         }
         else if (!parsedLoading && loadingResolver) {
-            console.log('Got results from query');
+            if (!results) {
+                results = "[]"
+            }
             const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataProvider?.rows;
             loadingResolver(parsedResults);
             loadingResolver = null;
@@ -135,7 +137,10 @@
         }
     }
 
-    function changeHandler() {
+    function changeHandler(e) {
+        console.log('selectedItem', selectedItem)
+        console.log('changeHandler', e);
+        console.log('searcheventhandler', searchEvent);
         if (selectedItem) {
             fieldApi?.setValue(selectedItem[valueFieldName]);
         }

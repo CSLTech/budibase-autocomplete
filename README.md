@@ -19,6 +19,8 @@ Install the plugin and use is as you would any other string form field. The auto
 
 In all cases, the plugin expects an array of objects. You can configure which field of the object is used as the label and which one is used for the value.
 
+If using Custom Query, your query will need to support searching by the value field (probably selected item ID). Upon item select, an additional query is performed.
+
 If you want to support arbitrary text in addition to selections, the plugin exposes a **text** binding.
 
 ### Asynchronous Flow
