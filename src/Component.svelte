@@ -100,6 +100,11 @@
             console.log('Got results from query');
             console.log("searchevent: ", searchEvent)
             console.log("results: ", results)
+
+            if (!results) {
+                results = "[]"
+            }
+
             const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataProvider?.rows;
             loadingResolver(parsedResults);
             loadingResolver = null;
