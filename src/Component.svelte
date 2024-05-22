@@ -63,6 +63,7 @@
             fieldApi = fieldValue?.fieldApi;
 
             const value = fieldState?.value;
+            console.log('value', value);
 
             if (value && !initialItemsPromise) {
                 console.log('Loading initial items');
@@ -138,7 +139,9 @@
         }
     }
 
-    function changeHandler() {
+    function changeHandler(e) {
+        console.log('selectedItem', selectedItem)
+        console.log('changeHandler', e);
         if (selectedItem) {
             fieldApi?.setValue(selectedItem[valueFieldName]);
         }
