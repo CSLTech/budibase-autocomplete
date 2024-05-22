@@ -98,9 +98,8 @@
         }
         else if (!parsedLoading && loadingResolver) {
             console.log('Got results from query');
+            console.log("searchevent: ", searchEvent)
             console.log("results: ", results)
-            console.log("queryParam: ", queryParam)
-            console.log("dataProvider: ", dataProvider)
             const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataProvider?.rows;
             loadingResolver(parsedResults);
             loadingResolver = null;
@@ -142,6 +141,7 @@
     function changeHandler(e) {
         console.log('selectedItem', selectedItem)
         console.log('changeHandler', e);
+        console.log('searcheventhandler', searchEvent);
         if (selectedItem) {
             fieldApi?.setValue(selectedItem[valueFieldName]);
         }
