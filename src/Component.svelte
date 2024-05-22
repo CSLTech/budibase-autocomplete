@@ -63,7 +63,6 @@
             fieldApi = fieldValue?.fieldApi;
 
             const value = fieldState?.value;
-            console.log('value', value);
 
             if (value && !initialItemsPromise) {
                 console.log('Loading initial items');
@@ -97,14 +96,9 @@
             });
         }
         else if (!parsedLoading && loadingResolver) {
-            console.log('Got results from query');
-            console.log("searchevent: ", searchEvent)
-            console.log("results: ", results)
-
             if (!results) {
                 results = "[]"
             }
-
             const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataProvider?.rows;
             loadingResolver(parsedResults);
             loadingResolver = null;
