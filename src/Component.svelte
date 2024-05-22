@@ -98,6 +98,8 @@
         else if (!parsedLoading && loadingResolver) {
             console.log('Got results from query');
             console.log("results: ", results)
+            console.log("queryParam: ", queryParam)
+            console.log("dataProvider: ", dataProvider)
             const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataProvider?.rows;
             loadingResolver(parsedResults);
             loadingResolver = null;
