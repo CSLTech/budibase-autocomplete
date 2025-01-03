@@ -1,7 +1,7 @@
 {
   "name": "autocomplete",
-  "version": "1.0.7",
-  "description": "Dynamicc Autocomplete (based on https://github.com/pstanoev/simple-svelte-autocomplete)",
+  "version": "1.0.8",
+  "description": "Dynamic Autocomplete (based on https://github.com/pstanoev/simple-svelte-autocomplete)",
   "license": "MIT",
   "svelte": "index.js",
   "module": "dist/plugin.min.js",
