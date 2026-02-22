@@ -1,6 +1,8 @@
 {
   "type": "component",
-  "metadata": {},
+  "metadata": {
+    "svelteMajor": 5
+  },
   "schema": {
     "name": "autocomplete",
     "friendlyName": "Autocomplete Field",
@@ -31,7 +33,24 @@
         "type": "select",
         "key": "dataSourceType",
         "label": "Data Source Type",
-        "options": [{"label": "Budibase Datasource", "value": "budibase"}, {"label": "API", "value": "api"}, {"label": "Static", "value": "static"}, {"label": "Custom Query", "value": "query"}],
+        "options": [
+          {
+            "label": "Budibase Datasource",
+            "value": "budibase"
+          },
+          {
+            "label": "API",
+            "value": "api"
+          },
+          {
+            "label": "Static",
+            "value": "static"
+          },
+          {
+            "label": "Custom Query",
+            "value": "query"
+          }
+        ],
         "defaultValue": "budibase",
         "required": true
       },
@@ -86,7 +105,10 @@
         ],
         "dependsOn": {
           "setting": "dataSourceType",
-          "value": ["query", "budibase"]
+          "value": [
+            "query",
+            "budibase"
+          ]
         }
       },
       {
@@ -122,7 +144,11 @@
         "label": "Label Field Name",
         "dependsOn": {
           "setting": "dataSourceType",
-          "value": ["query", "budibase", "api"]
+          "value": [
+            "query",
+            "budibase",
+            "api"
+          ]
         },
         "default": "label"
       },
@@ -132,7 +158,11 @@
         "label": "Value Field Name",
         "dependsOn": {
           "setting": "dataSourceType",
-          "value": ["query", "budibase", "api"]
+          "value": [
+            "query",
+            "budibase",
+            "api"
+          ]
         },
         "default": "value"
       }
