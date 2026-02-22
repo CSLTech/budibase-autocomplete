@@ -108,6 +108,15 @@
         }
       },
       {
+        "type": "boolean",
+        "key": "debug",
+        "label": "Enable debug logging",
+        "dependsOn": {
+          "setting": "dataSourceType",
+          "value": "query"
+        }
+      },
+      {
         "type": "plainText",
         "key": "labelFieldName",
         "label": "Label Field Name",

@@ -1,6 +1,6 @@
 {
   "name": "autocomplete",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Dynamic Autocomplete (based on https://github.com/pstanoev/simple-svelte-autocomplete)",
   "license": "MIT",
   "svelte": "index.js",
@@ -12,7 +12,7 @@
   "dependencies": {
     "@crownframework/svelte-error-boundary": "^1.0.3",
     "simple-svelte-autocomplete": "^2.5.2",
-    "svelte": "^3.49.0"
+    "svelte": "^5.53.2"
   },
   "devDependencies": {
     "@budibase/backend-core": "^2.0.13",

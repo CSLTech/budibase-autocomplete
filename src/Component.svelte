@@ -16,6 +16,7 @@
     export let results;
     export let labelFieldName;
     export let valueFieldName;
+    export let debug;
 
     let resultsPromise;
     let loadingResolver;
@@ -96,9 +97,16 @@
             });
         }
         else if (!parsedLoading && loadingResolver) {
+            console.log('Got new results from query');
+
             if (!results) {
                 results = "[]"
             }
+
+            if (debug && dataSourceType === 'query') {
+                console.log(`Raw results were ${results}`);
+            }
+
             const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataProvider?.rows;
             loadingResolver(parsedResults);
             loadingResolver = null;
@@ -138,9 +146,6 @@
     }
 
     function changeHandler(e) {
-        console.log('selectedItem', selectedItem)
-        console.log('changeHandler', e);
-        console.log('searcheventhandler', searchEvent);
         if (selectedItem) {
             fieldApi?.setValue(selectedItem[valueFieldName]);
         }
