@@ -91,7 +91,7 @@ export default {
       if (id === "svelte/animate") return "svelteAnimate"
       if (id === "svelte/motion") return "svelteMotion"
       if (id === "svelte/easing") return "svelteEasing"
-      if (id.includes("/internal")) return "svelteInternal"
+      if (id.includes("/internal")) return "svelte_internal"
       return "svelte"
     },
   },
