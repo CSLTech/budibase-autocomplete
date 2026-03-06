@@ -81,7 +81,7 @@ export default {
   input: "index.js",
   external: (id) => id === "svelte" || id.startsWith("svelte/"),
   output: {
-    sourcemap: process.env.ROLLUP_WATCH ? "inline" : false,
+    sourcemap: true, //process.env.ROLLUP_WATCH ? "inline" : false,
     format: "iife",
     file: "dist/plugin.min.js",
     name: "plugin",
@@ -91,7 +91,8 @@ export default {
       if (id === "svelte/animate") return "svelteAnimate"
       if (id === "svelte/motion") return "svelteMotion"
       if (id === "svelte/easing") return "svelteEasing"
-      if (id.includes("/internal")) return "svelteInternal"
+      if (id === "svelte/events") return "svelteEvents"
+      if (id.startsWith("svelte/internal")) return "svelteInternal"
       return "svelte"
     },
   },
@@ -118,10 +119,12 @@ export default {
     resolve({
       preferBuiltins: true,
       browser: true,
+      exportConditions: ['default', 'module', 'import', 'svelte'],
+      extensions: ['.mjs', '.js', '.json', '.node', '.svelte'],
     }),
     svg(),
     json(),
-    terser(),
+    //terser(),
     copy2.default({
       assets: ["schema.json", "package.json"],
     }),

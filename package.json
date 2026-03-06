@@ -1,7 +1,7 @@
 {
   "name": "autocomplete",
-  "version": "1.1.3",
-  "description": "Dynamic Autocomplete (based on https://github.com/pstanoev/simple-svelte-autocomplete)",
+  "version": "2.0.1",
+  "description": "Dynamic Autocomplete (based on SMUI Autocomplete)",
   "license": "MIT",
   "svelte": "index.js",
   "module": "dist/plugin.min.js",
@@ -10,8 +10,10 @@
     "watch": "rollup -cw rollup.config.mjs"
   },
   "dependencies": {
-    "simple-svelte-autocomplete": "^2.5.2",
-    "svelte": "^5.0.0"
+    "@smui-extra/autocomplete": "^8.0.3",
+    "@smui/circular-progress": "^8.0.3",
+    "@smui/list": "^8.0.3",
+    "svelte": "^5.53.7"
   },
   "devDependencies": {
     "@budibase/backend-core": "^2.8.0",

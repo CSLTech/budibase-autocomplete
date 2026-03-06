@@ -20,14 +20,14 @@
         "key": "label"
       },
       {
-        "type": "text",
-        "label": "Placeholder",
-        "key": "placeholder"
-      },
-      {
         "type": "validation/string",
         "label": "Validation",
         "key": "validation"
+      },
+      {
+        "type": "boolean",
+        "key": "allowArbitrary",
+        "label": "Allow arbitrary values"
       },
       {
         "type": "select",

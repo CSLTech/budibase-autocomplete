@@ -1,11 +1,14 @@
 <script lang='ts'>
-    import AutoComplete from 'simple-svelte-autocomplete'
+    import '../node_modules/@smui-extra/autocomplete/bare.css';
+    import Autocomplete from '@smui-extra/autocomplete';
+    import { Text } from '@smui/list';
+    import CircularProgress from '@smui/circular-progress';
+
     import { getContext, onDestroy } from 'svelte';
 
     export let field;
     export let label;
     export let validation;
-    export let placeholder;
     export let dataSourceType;
     export let searchEvent;
     export let apiUrl;
@@ -17,6 +20,7 @@
     export let labelFieldName;
     export let valueFieldName;
     export let debug;
+    export let allowArbitrary;
 
     let resultsPromise;
     let loadingResolver;
@@ -67,7 +71,6 @@
 
             if (value && !initialItemsPromise) {
                 console.log('Loading initial items');
-                placeholder = 'Loading';
                 initialItemsPromise = await getItems(value);
                 const item = (await initialItemsPromise).find((item) => item[valueFieldName] === value);
 
@@ -80,8 +83,6 @@
                         [labelFieldName]: value
                     };
                 }
-
-                placeholder = '';
             }
 
         });
@@ -100,14 +101,18 @@
             console.log('Got new results from query');
 
             if (!results) {
-                results = "[]"
+                results = []
+            }
+
+            if (typeof results === 'string') {
+                results = JSON.parse(results);
             }
 
             if (debug && dataSourceType === 'query') {
                 console.log(`Raw results were ${results}`);
             }
 
-            const parsedResults = dataSourceType === 'query' ? JSON.parse(results) : dataProvider?.rows;
+            const parsedResults = dataSourceType === 'query' ? results : dataProvider?.rows;
             loadingResolver(parsedResults);
             loadingResolver = null;
         }
@@ -123,7 +128,28 @@
         unsubscribe?.();
     });
 
+    async function searchItems(keyword: string) {
+        const items = await getItems(keyword);
+
+        return items.filter((item) => item[labelFieldName].toLowerCase().includes(keyword));
+    }
+
     async function getItems(keyword: string) {
+        const items = await _getItems(keyword);
+
+        if (allowArbitrary) {
+            const arbitraryItem = {
+                [labelFieldName]: keyword,
+                [valueFieldName]: keyword
+            }
+
+            return [...items, arbitraryItem];
+        }
+
+        return items;
+    }
+
+    async function _getItems(keyword: string) {
         switch (dataSourceType) {
             case 'budibase':
                 if (!searchEvent) {
@@ -145,10 +171,24 @@
         }
     }
 
-    function changeHandler(e) {
+    function changeHandler(v) {
+        selectedItem = v;
+
         if (selectedItem) {
             fieldApi?.setValue(selectedItem[valueFieldName]);
         }
+    }
+
+    function getOptionLabel(option) {
+        if (!option) {
+            return;
+        }
+
+        if (!labelFieldName) {
+            return typeof option === 'string' ? option : JSON.stringify(option);
+        }
+
+        return option[labelFieldName];
     }
 
 </script>
@@ -158,46 +198,27 @@
     {#if !formContext}
         <div class='placeholder'>Form components need to be wrapped in a form</div>
     {:else}
-        <label
-            class:hidden={!label}
-            for={fieldState?.fieldId}
-            class={`spectrum-FieldLabel spectrum-FieldLabel--sizeM spectrum-Form-itemLabel ${labelClass}`}
-        >
-          {label || ' '}
-        </label>
         <div class='spectrum-Form-itemField'>
-            <AutoComplete inputId={fieldState?.fieldId} className="autocomplete-width" searchFunction="{getItems}" bind:selectedItem bind:text {placeholder} {labelFieldName} {valueFieldName} onChange="{changeHandler}" {delay} cleanUserText={false} {debug} />
+            <Autocomplete
+                inputId={fieldState?.fieldId}
+                search="{searchItems}"
+                bind:value={() => selectedItem, changeHandler}
+                bind:text
+                showMenuWithNoInput={false}
+                {label}
+                {getOptionLabel}
+                style="width: 100%;"
+                textfield$style="width: 100%;"
+            >
+                {#snippet loading()}
+                    <Text style="display: flex; width: 100%; justify-content: center; align-items: center;" >
+                        <CircularProgress style="height: 24px; width: 24px;" indeterminate />
+                    </Text>
+                {/snippet}
+            </Autocomplete>
         </div>
         {#if fieldState?.error}
             <div class='error'>{fieldState.error}</div>
         {/if}
     {/if}
 </div>
-
-<style>
-  .placeholder {
-    color: var(--spectrum-global-color-gray-600);
-  }
-  label {
-    white-space: nowrap;
-  }
-  label.hidden {
-    padding: 0;
-  }
-  .spectrum-FieldLabel--right,
-  .spectrum-FieldLabel--left {
-    padding-right: var(--spectrum-global-dimension-size-200);
-  }
-    .spectrum-Form-item.above {
-    display: flex;
-    flex-direction: column;
-  }
-  .spectrum-Form-itemField {
-    position: relative;
-    width: 100%;
-  }
-  :global(.autocomplete-width) {
-    width:100%;
-  }
-
-</style>
