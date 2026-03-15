@@ -1,6 +1,6 @@
 {
   "name": "autocomplete",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Dynamic Autocomplete (based on SMUI Autocomplete)",
   "license": "MIT",
   "svelte": "index.js",
@@ -13,7 +13,7 @@
     "@smui-extra/autocomplete": "^8.0.3",
     "@smui/circular-progress": "^8.0.3",
     "@smui/list": "^8.0.3",
-    "svelte": "^5.53.7"
+    "svelte": "5.40.2"
   },
   "devDependencies": {
     "@budibase/backend-core": "^2.8.0",
